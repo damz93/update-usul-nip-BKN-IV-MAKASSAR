@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="id">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Update Usul NIP CPNS & PPPK BKN IV Makassar | by Dedy A Muzawwir</title>
+		<link rel="icon" href="logo-bkniv-mks.jpg" type="image/png">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+		<style>body {
+			font-family: 'Poppins', sans-serif;
+			/* background: url('https://matahari-textile.com/wp-content/uploads/2022/07/korpri-40s.jpg') no-repeat center center; */
+			background-size: cover;
+			background-color: aliceblue;
+			position: relative;
+			height: auto;
+			padding-bottom: 120px;
+			}
+			bodaay::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(27, 154, 222, 0.626);
+			/* Transparansi di atas gambar */
+			backdrop-filter: blur(10px);
+			/* Efek blur */
+			z-index: -1;
+			/* Agar tetap di belakang konten */
+			}
+			.container {
+			background: rgba(255, 255, 255, 0.8);
+			/* Transparan sedikit untuk kontainer */
+			border-radius: 15px;
+			padding: 10px;
+			box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+			}
+			.table {
+			border-radius: 10px;
+			overflow: hidden;
+			}
+			input:focus {
+			border-color: rgba(0, 0, 255, 0.734) !important;
+			box-shadow: 0 0 10px rgba(0, 60, 128, 0.5) !important;
+			}
+			@keyframes blink {
+			25% {
+			opacity: 1;
+			}
+			50% {
+			opacity: 0;
+			}
+			100% {
+			opacity: 1;
+			}
+			}
+			.blink {
+			animation: blink 3s infinite;
+			}
+			@media (max-width: 768px) {
+			.table-responsive {
+			overflow-x: auto;
+			}
+			table td,
+			table th {
+			font-size: 0.7rem;
+			}
+			.text-danger {
+			font-size: 0.9rem;
+			text-align: center;
+			margin-top: 20px;
+			}
+			.d-flex {
+			flex-direction: column;
+			align-items: center;
+			}
+			}
+		</style>
+		<style>
+			#saweria-widget {
+			position: fixed;
+			bottom: 10%; 
+			left: 1%;
+			background: #1D234D;
+			padding: 10px 15px;
+			border-radius: 30px;
+			box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+			z-index: 9999;
+			font-family: sans-serif;
+			font-size: 14px;
+			transition: transform 0.5s ease;
+			}
+			#saweria-widget:hover {
+			transform: scale(1.1);
+			}
+			#saweria-widget img {
+			width: 50px;
+			height: auto;
+			}
+		</style>
+	</head>
+	<body style="background-color: #0816444c;">
+		<div id="saweria-widget">
+			<a href="https://saweria.co/damz93" target="_blank" style="text-decoration: none; color: #fff;">
+			<img src="https://www.pngplay.com/wp-content/uploads/12/Killua-Zoldyck-Transparent-Image.png" alt="Donasi" style="width: 35px; vertical-align: middle;">
+			<span style="margin-left: 1px;font-family: poppins;">✨agar terus berkembang💖</span>
+			</a>
+		</div>
+		<!-- Header Sticky -->
+		<div style="position: sticky; top: 0; z-index: 1000;">
+			<div class="text-center pt-3" style="background-color: #FFF; color: #081644; font-weight: bold;">
+				<!-- Logo dan Link -->
+				<a target="_blank" href="https://www.instagram.com/bknmakassar" class="no-style">
+				<img 
+					title="BKN IV MAKASSAR" 
+					src="logo-bkniv-mks.jpg" 
+					height="80" 
+					style="width: auto;">
+				</a>
+				<!-- Judul -->
+				<div style="margin-top: 1px;font-size: 1.2rem;">
+					<b>UPDATE USUL NIP</b>
+				</div>
+				<!-- Subjudul -->
+				<div class="text-center pb-3" style="color: darkgoldenrod; font-weight: 500; font-size: 0.9rem;">
+					<b>CPNS & PPPK BKN IV Makassar T.A. 2024</b>
+				</div>
+			</div>
+		</div>
+		<div class="container mt-4">
+			<div class="row mb-3 mt-3">
+				<div class="col-md-8 col-lg-4">
+					<label for="sheetSelect" class="form-label">Pilih Kategori:</label>
+					<select id="sheetSelect" class="form-select" onchange="fokusKe()">
+						<option value="2089644188">CPNS</option>
+						<option value="977676340">PPPK GURU</option>
+						<option value="188726961">PPPK TEKNIS</option>
+						<option value="1263056525">PPPK TENAGA KESEHATAN</option>
+					</select>
+				</div>
+				<div class="col-md-4 col-lg-8 align-self-end">
+					<h5 class="text-danger blink fw-bold text-md-end" id="update-info">Memuat data...</h5>
+				</div>
+			</div>
+			<input type="text" id="searchInput" autofocus autocomplete="off" class="form-control mb-3" placeholder="🔍 Masukkan nama instansi..." onkeyup="filterTable()">
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover table-striped">
+					<thead class="table-dark" id="tableHeader">
+						<tr id ="headerRow">
+							<!-- <th>Instansi</th>
+								<th>Total Usul</th>
+								<th>Jumlah Formasi</th>
+								<th>Jumlah Lulus</th>
+								<th>Verval Berkas (Instansi)</th>
+								<th>Jumlah Usul Masuk</th>
+								<th>MS</th>
+								<th>BTS</th>
+								<th>TMS</th>
+								<th>Sisa (BKN)</th>
+								<th>Pertek Selesai</th>
+								<th>Presentase SK (Instansi)</th>
+								-->
+						</tr>
+					</thead>
+					<tbody id="data-body"></tbody>
+				</table>
+				<div class="text-center mt-2" style="font-size: 0.8rem;">
+					<p>Untuk melihat seluruh instansi: <a class="btn btn-success" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTDiSIh10dFpMtOUW3jscooK383xur8L801zJ7aJjAJqf6OuEFYbHpeXLtiqPxG4XiNh52uvpsF3eJC/pubhtml" target="_blank">Klik di sini</a></p>
+				</div>
+			</div>
+		</div>
+		<script>
+			function updateTableHeader() {
+			let selectedGid = document.getElementById("sheetSelect").value;
+			let headerRow = document.getElementById("headerRow");
+			
+			// Clear existing header
+			headerRow.innerHTML = "";
+			
+			if (selectedGid === '977676340') {
+			// Header untuk PPPK GURU
+			headerRow.innerHTML = `
+			<th>Instansi Pemerintah Daerah</th>
+			<th>Verval Berkas (Instansi)</th>
+			<th>Jumlah Formasi</th>
+			<th>Jumlah Lulus</th>
+			<th>Usul Masuk</th>
+			<th>ACC</th>
+			<th>BTS</th>
+			<th>TMS</th>
+			<th>Sisa (BKN)</th>
+			<th>Pertek Selesai</th>
+			<th>Presentase SK (Instansi)</th>
+			`;
+			} else {
+			// Header untuk jenis instansi lain
+			headerRow.innerHTML = `
+			<th>Instansi</th>
+			<th>Total Usul</th>
+			<th>Jumlah Formasi</th>
+			<th>Jumlah Lulus</th>
+			<th>Verval Berkas (Instansi)</th>
+			<th>Jumlah Usul Masuk</th>
+			<th>MS</th>
+			<th>BTS</th>
+			<th>TMS</th>
+			<th>Sisa (BKN)</th>
+			<th>Pertek Selesai</th>
+			<th>Presentase SK (Instansi)</th>
+			`;
+			}
+			}
+			
+			// Panggil fungsi updateTableHeader saat halaman dimuat atau saat sheet berubah
+			document.getElementById("sheetSelect").addEventListener("change", updateTableHeader);
+			window.onload = updateTableHeader; // Pastikan header diperbarui saat halaman dimuat
+			
+			function loadSheet(gid) {
+			const sheetUrl = `https://docs.google.com/spreadsheets/d/e/2PACX-1vTDiSIh10dFpMtOUW3jscooK383xur8L801zJ7aJjAJqf6OuEFYbHpeXLtiqPxG4XiNh52uvpsF3eJC/pub?output=csv&gid=${gid}`;
+			
+			fetch(sheetUrl)
+			.then(response => response.text())
+			.then(csvData => {
+			   const parsedData = Papa.parse(csvData, { skipEmptyLines: true }).data;
+			   let updateInfo;
+			   let cekApa;
+			            
+			            
+			
+			   if (parsedData.length > 1) {
+			       if (gid === '2089644188') {
+			                    updateInfo = parsedData[0][1] || "-";
+			                    cekApa = "Semua Instansi (CPNS)";
+			                } else if (gid === '188726961') {
+			                    updateInfo = parsedData[0][1] || "-";
+			                    cekApa = "Semua Instansi (PPPK Teknis)";
+			                } else if (gid === '977676340') {
+			                    updateInfo = parsedData[0][2] || "-";
+			                    cekApa = "Semua Instansi (PPPK Guru)";
+			                } else {
+			                    updateInfo = parsedData[0][1] || "-";
+			                    cekApa = "Semua Instansi (PPPK Kesehatan)";
+			                }
+			
+			       // document.getElementById("update-info").innerText = updateInfo.toLowerCase();
+			       // document.getElementById("update-info").innerText = updateInfo
+			       // .toLowerCase()
+			       // .split(" ")
+			       // .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+			       // .join(" ");
+			                document.getElementById("update-info").innerText = updateInfo
+			       .split(" ")
+			       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+			       .join(" ");
+			
+			
+			   }
+			
+			   let tableContent = "";
+			   let allRows = "";
+			
+			   parsedData.forEach((cols, i) => {
+			       if (i === 0) return;
+			
+			       if (cols.length >= 2) {
+                    let row = "";
+                    if (gid === '977676340'){
+                        row = `<tr class="instansi-row" style="display: none;">                                    
+                                     <td>${cols[3] === "" ? cekApa : cols[3]}</td>
+                                    <td style="text-align:right">${cols[4] || "0"}</td> <!-- Verval Berkas (Instansi) -->
+                                    <td style="text-align:right">${cols[5] || "0"}</td> <!-- Jumlah Formasi -->
+                                    <td style="text-align:right">${cols[6] || "0"}</td> <!-- Jumlah Lulus -->
+                                    <td style="text-align:right">${cols[7] || "0"}</td> <!-- Usul Masuk -->
+                                    <td style="text-align:right">${cols[8] || "0"}</td> <!-- ACC -->
+                                    <td style="text-align:right">${cols[9] || "0"}</td> <!-- BTS -->
+                                    <td style="text-align:right">${cols[10] || "0"}</td> <!-- TMS -->
+                                    <td style="text-align:right">${cols[11] || "0"}</td> <!-- Sisa (BKN) -->
+                                    <td style="text-align:right">${cols[12] || "0"}</td> <!-- Pertek Selesai -->
+                                    <td style="text-align:right">${cols[13] || "0"}</td> <!-- Presentase SK (Instansi) -->
+                                </tr>`;
+                    }
+			        else{   
+                    row = 
+			                    `<tr class="instansi-row" style="display: none;">
+			                        
+			                        <td style="text-align:right">${(cols[2] && cols[2].length > "TOTAL".length) ? cols[2] : cekApa}</td>
+			
+			                        <td style="text-align:right">${cols[3] || "0"}</td>
+			                        <td style="text-align:right">${cols[4] || "0"}</td>
+			                        <td style="text-align:right">${cols[5] || "0"}</td>
+			                        <td style="text-align:right">${cols[6] || "0"}</td>
+			                        <td style="text-align:right">${cols[7] || "0"}</td>
+			                        <td style="text-align:right">${cols[8] || "0"}</td>
+			                        <td style="text-align:right">${cols[9] || "0"}</td>
+			                        <td style="text-align:right">${cols[10] || "0"}</td>
+			                        <td style="text-align:right">${cols[11] || "0"}</td>
+			                        <td style="text-align:right">${cols[12] || "0"}</td>
+			                        <td style="text-align:right">${cols[13] || "0"}</td>
+			                    </tr>`;
+                            }
+			           allRows += row;
+			           if (cekApa === "Semua Instansi (CPNS)"){
+			               if (i === 2) tableContent += row.replace('style="display: none;"', 'style=""');
+			           }
+			                    else if (cekApa === "Semua Instansi (PPPK Teknis)"){
+			                        if (i === 79) tableContent += row.replace('style="display: none;"', 'style=""');
+			                    }
+			                    else if (cekApa === "Semua Instansi (PPPK Kesehatan)"){
+			                        if (i === 74) tableContent += row.replace('style="display: none;"', 'style=""');
+			                    } 
+			                    else {
+			               if (i === 70) tableContent += row.replace('style="display: none;"', 'style=""');
+			           }
+			       }
+                
+			   });
+			
+			   document.getElementById("data-body").innerHTML = tableContent + allRows;
+			});
+			}
+			
+			function filterTable() {
+                let input = document.getElementById("searchInput").value.toLowerCase();
+                let rows = document.querySelectorAll("#data-body .instansi-row");
+                let selectedGid = document.getElementById("sheetSelect").value;
+                let defaultRowIndex;
+                let instansiColumnIndex;
+                
+                // Tentukan defaultRowIndex dan instansiColumnIndex berdasarkan selectedGid
+                if (selectedGid === '2089644188') {
+                    defaultRowIndex = 2; // CPNS
+                    instansiColumnIndex = 0; // Kolom Instansi untuk CPNS
+                } else if (selectedGid === '188726961') {
+                    defaultRowIndex = 79; // PPPK TEKNIS
+                    instansiColumnIndex = 0; // Kolom Instansi untuk PPPK TEKNIS
+                } else if (selectedGid === '977676340') {
+                    defaultRowIndex = 70; // PPPK GURU
+                    instansiColumnIndex = 0; // Kolom Instansi untuk PPPK GURU (misalnya kolom ketiga)
+                } else {
+                    defaultRowIndex = 74; // PPPK TENAGA KESEHATAN atau lainnya
+                    instansiColumnIndex = 0; // Kolom Instansi untuk lainnya
+                }
+                
+                // Pastikan baris default selalu tampil
+                rows.forEach((row, index) => {
+                    if (index === defaultRowIndex) {
+                        row.style.display = ""; // Tampilkan baris default
+                    }
+                });
+                
+                if (input === "") {
+                // Jika input kosong, hanya tampilkan baris default
+                    rows.forEach((row, index) => {
+                        if (index !== defaultRowIndex) {
+                            row.style.display = "none"; // Sembunyikan baris selain default
+                        }
+                    });
+                    return; // Tidak lanjutkan pencarian
+                }
+                
+                // Pencarian untuk baris lainnya
+                rows.forEach((row, index) => {
+                // Lewati baris default
+                    if (index === defaultRowIndex) return;
+                    
+                    let instansi = row.cells[instansiColumnIndex].innerText.toLowerCase(); // Gunakan kolom yang sesuai untuk pencarian
+                        if (instansi.includes(input)) {
+                            row.style.display = ""; // Tampilkan jika instansi sesuai dengan input pencarian
+                        } else {
+                            row.style.display = "none"; // Sembunyikan jika tidak sesuai
+                        }
+                    });
+                }
+                
+                
+                
+                document.getElementById("sheetSelect").addEventListener("change", function() {
+                loadSheet(this.value);
+                });
+                
+                loadSheet("2089644188");
+                function fokusKe() {
+                let inputField = document.getElementById("searchInput");
+                inputField.focus();  // Fokus ke input
+                inputField.value = "";  // Mengosongkan isi input
+			}
+			
+		</script>
+		<footer class="text-center" style="
+			background-color: #081644b6;         
+			color: white; 
+			font-size: 0.8rem; 
+			width: 100%; 
+			position: fixed; 
+			bottom: 0;
+			left: 0;">
+			<p class="m-3">Dibuat dengan ganteng <a href="https://damz93.github.io/dedy-a-muzawwir" target="_blank" style="color: #bea411; text-decoration: none; font-weight: bold;">D.A.M.Z</a></p>
+		</footer>
+	</body>
+</html>
