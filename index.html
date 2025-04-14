@@ -168,19 +168,7 @@
 				<table class="table table-bordered table-hover table-striped">
 					<thead class="table-dark" id="tableHeader">
 						<tr id ="headerRow">
-							<!-- <th>Instansi</th>
-								<th>Total Usul</th>
-								<th>Jumlah Formasi</th>
-								<th>Jumlah Lulus</th>
-								<th>Verval Berkas (Instansi)</th>
-								<th>Jumlah Usul Masuk</th>
-								<th>MS</th>
-								<th>BTS</th>
-								<th>TMS</th>
-								<th>Sisa (BKN)</th>
-								<th>Pertek Selesai</th>
-								<th>Presentase SK (Instansi)</th>
-								-->
+						
 						</tr>
 					</thead>
 					<tbody id="data-body"></tbody>
@@ -199,36 +187,70 @@
 			headerRow.innerHTML = "";
 			
 			if (selectedGid === '977676340') {
-			// Header untuk PPPK GURU
+			
+				// Header untuk PPPK GURU
+				headerRow.innerHTML = `
+				<th>Instansi Pemerintah Daerah</th>
+				<th>Verval Berkas (Instansi)</th>
+				<th>Jumlah Formasi</th>
+				<th>Jumlah Lulus</th>
+				<th>Usul Masuk</th>
+				<th>ACC</th>
+				<th>BTS</th>
+				<th>TMS</th>
+				<th>Sisa (BKN)</th>
+				<th>Pertek Selesai</th>
+				<th>Presentase SK (Instansi)</th>
+				`;
+			}
+			else if (selectedGid === '1263056525') {
 			headerRow.innerHTML = `
-			<th>Instansi Pemerintah Daerah</th>
-			<th>Verval Berkas (Instansi)</th>
-			<th>Jumlah Formasi</th>
-			<th>Jumlah Lulus</th>
-			<th>Usul Masuk</th>
-			<th>ACC</th>
-			<th>BTS</th>
-			<th>TMS</th>
-			<th>Sisa (BKN)</th>
-			<th>Pertek Selesai</th>
-			<th>Presentase SK (Instansi)</th>
-			`;
-			} else {
-			// Header untuk jenis instansi lain
-			headerRow.innerHTML = `
-			<th>Instansi</th>
-			<th>Total Usul</th>
-			<th>Jumlah Formasi</th>
-			<th>Jumlah Lulus</th>
-			<th>Verval Berkas (Instansi)</th>
-			<th>Jumlah Usul Masuk</th>
-			<th>MS</th>
-			<th>BTS</th>
-			<th>TMS</th>
-			<th>Sisa (BKN)</th>
-			<th>Pertek Selesai</th>
-			<th>Presentase SK (Instansi)</th>
-			`;
+				<th>Instansi</th>
+				<th>Total Usul</th>
+				<th>Jumlah Formasi</th>
+				<th>Jumlah Lulus</th>
+				<th>Verval Berkas (Instansi)</th>
+				<th>Jumlah Usul Masuk</th>
+				<th>ACC</th>
+				<th>BTS</th>
+				<th>TMS</th>
+				<th>Sisa (BKN)</th>
+				<th>Pertek Selesai</th>
+				<th>Presentase SK (Instansi)</th>
+				`;
+			}
+			else if (selectedGid === '188726961') {
+				// Header untuk PPPK TEKNIS
+				headerRow.innerHTML = `
+				<th>Instansi</th>
+				<th>Jumlah Formasi</th>
+				<th>Jumlah Lulus</th>
+				<th>Verval Berkas (Instansi)</th>
+				<th>Jumlah Usul Masuk</th>
+				<th>ACC</th>
+				<th>BTS</th>
+				<th>TMS</th>
+				<th>Sisa (BKN)</th>
+				<th>Pertek Selesai</th>
+				<th>Presentase SK (Instansi)</th>
+				`;
+			}
+			else {
+				// Header untuk jenis instansi lain
+				headerRow.innerHTML = `
+				<th>Instansi</th>
+				<th>Total Usul</th>
+				<th>Jumlah Formasi</th>
+				<th>Jumlah Lulus</th>
+				<th>Verval Berkas (Instansi)</th>
+				<th>Jumlah Usul Masuk</th>
+				<th>MS</th>
+				<th>BTS</th>
+				<th>TMS</th>
+				<th>Sisa (BKN)</th>
+				<th>Pertek Selesai</th>
+				<th>Presentase SK (Instansi)</th>
+				`;
 			}
 			}
 			
@@ -300,6 +322,42 @@
                                     <td style="text-align:right">${cols[13] || "0"}</td> <!-- Presentase SK (Instansi) -->
                                 </tr>`;
                     }
+                	else if (gid === '1263056525'){
+						row = `<tr class="instansi-row" style="display: none;">
+			                        
+			                        <td style="text-align:right">${(cols[2] && cols[2].length > "TOTAL".length) ? cols[2] : cekApa}</td>
+			
+			                        <td style="text-align:right">${cols[3] || "0"}</td>
+			                        <td style="text-align:right">${cols[4] || "0"}</td>
+			                        <td style="text-align:right">${cols[5] || "0"}</td>
+			                        <td style="text-align:right">${cols[6] || "0"}</td>
+			                        <td style="text-align:right">${cols[7] || "0"}</td>
+			                        <td style="text-align:right">${cols[8] || "0"}</td>
+			                        <td style="text-align:right">${cols[9] || "0"}</td>
+			                        <td style="text-align:right">${cols[10] || "0"}</td>
+			                        <td style="text-align:right">${cols[11] || "0"}</td>
+			                        <td style="text-align:right">${cols[12] || "0"}</td>
+			                        <td style="text-align:right">${cols[13] || "0"}</td>
+			                    </tr>`;
+					}
+                	else if (gid === '188726961'){
+					row = `<tr class="instansi-row" style="display: none;">
+			                        
+			                        <td style="text-align:right">${(cols[2] && cols[2].length > "TOTAL".length) ? cols[2] : cekApa}</td>
+			
+			                        <td style="text-align:right">${cols[3] || "0"}</td>
+			                        <td style="text-align:right">${cols[4] || "0"}</td>
+			                        <td style="text-align:right">${cols[5] || "0"}</td>
+			                        <td style="text-align:right">${cols[6] || "0"}</td>
+			                        <td style="text-align:right">${cols[7] || "0"}</td>
+			                        <td style="text-align:right">${cols[8] || "0"}</td>
+			                        <td style="text-align:right">${cols[9] || "0"}</td>
+			                        <td style="text-align:right">${cols[10] || "0"}</td>
+			                        <td style="text-align:right">${cols[11] || "0"}</td>
+			                        <td style="text-align:right">${cols[12] || "0"}</td>
+			                    </tr>`;
+
+					}
 			        else{   
                     row = 
 			                    `<tr class="instansi-row" style="display: none;">
@@ -318,7 +376,7 @@
 			                        <td style="text-align:right">${cols[12] || "0"}</td>
 			                        <td style="text-align:right">${cols[13] || "0"}</td>
 			                    </tr>`;
-                            }
+                    }
 			           allRows += row;
 			           if (cekApa === "Semua Instansi (CPNS)"){
 			               if (i === 2) tableContent += row.replace('style="display: none;"', 'style=""');
